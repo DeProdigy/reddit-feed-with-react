@@ -11,10 +11,15 @@
     		className: 'post-item post-score'
     		@props.post.score
     	React.DOM.a
-    		className: 'post-item post-link'
+    		className: 'post-item post-permalink'
+    		target: 'blank'
+    		href: "http://www.reddit.com#{@props.post.permalink}"
+    		'Link to Reddit'
+    	React.DOM.a
+    		className: 'post-item post-outbound-link'
     		target: 'blank'
     		href: @props.post.url
-    		@props.post.url
+    		'Outbound Link'
     	React.DOM.img
     		className: 'post-item post-thumbnail'
     		src: @props.post.thumbnail
