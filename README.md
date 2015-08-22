@@ -1,13 +1,13 @@
-== README
-
 # Setup
-```bundle```
-```rake db:create```
 
-# Start
-```rails s```
+`bundle`
 
-# Task
+`rake db:create`
+
+## Start
+`rails s`
+
+### Task
 
 Your task is to build a simple app that will monitor Reddit for relevant links being posted based on a specific search term. 
 
@@ -21,7 +21,7 @@ You will also need an endpoint to collect comments for an existing article. You 
 
 http://www.reddit.com/r/javascript/comments/2yn5ww/i_made_a_thing_react_013_immutablejs_and_es6_via/.json
 
-# Functionality
+### Functionality
 
 - Poll the JSON endpoint with a given interval (say 30 seconds)
 - Every time the endpoint is polled, re-render a list of results sorted by newest first based on the search query
@@ -37,12 +37,12 @@ http://www.reddit.com/r/javascript/comments/2yn5ww/i_made_a_thing_react_013_immu
   - When the pin is activated, it should persist to a Rails backend into a database table.
   - If the page is refreshed, the pins should stay where they are.
 
-# Design
+### Design
 
 - Layout should be responsive and able to be viewed on both a phone and large desktop screen
 - Gridding: Feel free to use Bootstrap / Flexbox / etc., whatever you think is appropriate
 - Styling: Whatever you think is appropriate.
 
-# Deliverables
+### Deliverables
 
 Send us an archive of the project by end of day. Also please include a README to start the app.
