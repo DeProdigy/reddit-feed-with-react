@@ -5,7 +5,7 @@
   populatePosts: (posts) ->
     @replaceState posts: posts
 
-  componentDidMount: ->
+  fetchPosts: ->
     $.ajax
       method: 'GET'
       url: 'https://www.reddit.com/search.json?q=react.js'
@@ -14,6 +14,10 @@
         @populatePosts response.data.children
       error: (response) =>
         alert("Couldn't fetch the posts")
+
+  componentDidMount: ->
+    @fetchPosts()
+    setInterval(@fetchPosts, 30000)
 
   render: ->
     React.DOM.div null,
