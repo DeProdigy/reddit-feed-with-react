@@ -14,7 +14,7 @@
       url: 'https://www.reddit.com/search.json?q=react.js'
       dataType: 'JSON'
       success: (response) =>
-        @populatePosts response.data.children
+        @populatePosts response.data.children.map (child) -> child.data
       error: (response) =>
         alert("Couldn't fetch the posts")
 
@@ -28,7 +28,6 @@
     posts.splice index, 1
     @replaceProps pinned_posts: posts
 
-
   pinPost: (post) ->
     posts = @props.pinned_posts.slice()
     posts.push post
@@ -40,11 +39,11 @@
         React.DOM.h1
           className: 'title'
           'Pinned Posts'
-        for post, index in @props.pinned_posts
-          React.createElement PinnedPost, key: index, unpinPost: @unpinPost, post: post
+        for post in @props.pinned_posts
+          React.createElement PinnedPost, key: post.id, unpinPost: @unpinPost, post: post
       React.DOM.div null,
         React.DOM.h1
           className: 'title'
           'All Posts'
-        for post, index in @state.all_posts
-          React.createElement Post, key: index, pinPost: @pinPost, post: post.data
+        for post in @state.all_posts
+          React.createElement Post, key: post.id, pinPost: @pinPost, post: post

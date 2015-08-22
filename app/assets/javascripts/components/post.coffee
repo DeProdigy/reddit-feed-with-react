@@ -1,9 +1,25 @@
 @Post = React.createClass
+  getInitialState: ->
+    pinned: false
+
   getDefaultProps: ->
     post: ''
 
   handlePinPost: ->
+    @replaceState pinned: true
     @props.pinPost @props.post
+
+  pinnedButton: ->
+    React.DOM.button
+      type: 'submit'
+      disabled: true
+      'Already pinned!'
+
+  unpinnedButton: ->
+    React.DOM.button
+      type: 'submit'
+      onClick: @handlePinPost
+      'Pin!'
 
   render: ->
     React.DOM.div null,
@@ -27,7 +43,7 @@
         className: 'post-item post-thumbnail'
         src: @props.post.thumbnail
       React.createElement PostComment, post_url: "http://www.reddit.com#{@props.post.permalink}"
-      React.DOM.button
-        type: 'submit'
-        onClick: @handlePinPost
-        'Pin!'
+      if @state.pinned
+        @pinnedButton()
+      else
+        @unpinnedButton()
