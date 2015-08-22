@@ -2,6 +2,9 @@
   getDefaultProps: ->
     post: ''
 
+  handlePinPost: ->
+    @props.pinPost @props.post
+
   render: ->
     React.DOM.div null,
       React.DOM.h2
@@ -24,3 +27,7 @@
         className: 'post-item post-thumbnail'
         src: @props.post.thumbnail
       React.createElement PostComment, post_url: "http://www.reddit.com#{@props.post.permalink}"
+      React.DOM.button
+        type: 'submit'
+        onClick: @handlePinPost
+        'Pin!'
