@@ -2,14 +2,14 @@
 
 `bundle`
 
-`rake db:create`
+`rake db:setup`
 
 ## Start
 `rails s`
 
 ### Task
 
-Your task is to build a simple app that will monitor Reddit for relevant links being posted based on a specific search term. 
+Your task is to build a simple app that will monitor Reddit for relevant links being posted based on a specific search term.
 
 At Fundera we are using a mix of React and Ruby on Rails, so if possible it would be great if you use React.JS for this example, but is ok if you would rather use Angular/Ember/raw (but clean) jQuery.
 

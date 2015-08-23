@@ -34,4 +34,4 @@
         type: 'submit'
         disabled: @props.disabled
         onClick: @handleClick
-        if @props.pinned then 'upin' else 'Pin!'
+        if @props.pinned then 'Unpin...' else 'Pin!'

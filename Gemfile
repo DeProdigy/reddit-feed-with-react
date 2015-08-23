@@ -14,5 +14,5 @@ gem 'spring',        group: :development
 
 gem 'haml'
 gem 'react-rails', '~> 1.0'
-
+gem 'pry-rails', :group => :development
 
