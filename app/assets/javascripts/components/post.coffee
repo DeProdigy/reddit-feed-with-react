@@ -1,25 +1,11 @@
 @Post = React.createClass
-  getInitialState: ->
-    pinned: false
-
   getDefaultProps: ->
-    post: ''
+    pinned: false
+    post: null
+    onClick: ->
 
-  handlePinPost: ->
-    @replaceState pinned: true
-    @props.pinPost @props.post
-
-  pinnedButton: ->
-    React.DOM.button
-      type: 'submit'
-      disabled: true
-      'Already pinned!'
-
-  unpinnedButton: ->
-    React.DOM.button
-      type: 'submit'
-      onClick: @handlePinPost
-      'Pin!'
+  handleClick: ->
+    @props.onClick @props.post
 
   render: ->
     React.DOM.div null,
@@ -41,9 +27,9 @@
         'Outbound Link'
       React.DOM.img
         className: 'post-item post-thumbnail'
-        src: @props.post.thumbnail
+        # src: @props.post.thumbnail
       React.createElement PostComment, post_url: "http://www.reddit.com#{@props.post.permalink}"
-      if @state.pinned
-        @pinnedButton()
-      else
-        @unpinnedButton()
+      React.DOM.button
+        type: 'submit'
+        onClick: @handleClick
+        if @props.pinned then 'upin' else 'Pin!'

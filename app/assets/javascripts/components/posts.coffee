@@ -3,10 +3,11 @@
     pinned_posts: []
 
   getInitialState: ->
-    all_posts: []
+    all_posts: [],
+    pinned_posts: @props.pinned_posts
 
   populatePosts: (posts) ->
-    @replaceState all_posts: posts
+    @setState all_posts: posts
 
   fetchPosts: ->
     $.ajax
@@ -20,18 +21,32 @@
 
   componentDidMount: ->
     @fetchPosts()
-    setInterval(@fetchPosts, 30000)
+    setInterval @fetchPosts, 30000
 
-  unpinPost: (post) ->
-    posts = @props.pinned_posts.slice()
-    index = posts.indexOf post
-    posts.splice index, 1
-    @replaceProps pinned_posts: posts
+  componentWillUnmount: ->
+    clearInterval @fetchPosts
+
+  removePinnedPosts: (posts) ->
+    filteredAllPosts = @state.all_posts.filter (post) => posts.indexOf(post) >= 0
+    @setState all_posts: filteredAllPosts
+
+  unPinPost: (post) ->
+    # ajax delete to Rails
+    newPinnedPosts = @state.pinned_posts.filter (pinnedPost) -> pinnedPost.id  != post.id
+    @setState pinned_posts: newPinnedPosts
 
   pinPost: (post) ->
-    posts = @props.pinned_posts.slice()
-    posts.push post
-    @replaceProps pinned_posts: posts
+    # ajax post to Rails
+    newPinnedPosts = @state.pinned_posts.concat [post]
+    @setState pinned_posts: newPinnedPosts
+
+  renderPinnedPosts: (posts) ->
+    posts.map (post) =>
+      React.createElement Post, key: "pinned-#{post.id}", onClick: @unPinPost, post: post, pinned: true
+
+  renderPosts: (posts) ->
+    posts.map (post) =>
+      React.createElement Post, key: post.id, onClick: @pinPost, post: post
 
   render: ->
     React.DOM.div null,
@@ -39,11 +54,9 @@
         React.DOM.h1
           className: 'title'
           'Pinned Posts'
-        for post in @props.pinned_posts
-          React.createElement PinnedPost, key: post.id, unpinPost: @unpinPost, post: post
+        @renderPinnedPosts @state.pinned_posts
       React.DOM.div null,
         React.DOM.h1
           className: 'title'
           'All Posts'
-        for post in @state.all_posts
-          React.createElement Post, key: post.id, pinPost: @pinPost, post: post
+        @renderPosts @state.all_posts
