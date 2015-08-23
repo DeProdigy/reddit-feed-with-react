@@ -20,7 +20,7 @@
       React.DOM.a
         className: 'post-item post-permalink'
         target: 'blank'
-        href: "http://www.reddit.com#{@props.post.permalink}"
+        href: "https://www.reddit.com#{@props.post.permalink}"
         'Link to Reddit'
       React.DOM.a
         className: 'post-item post-outbound-link'
@@ -30,7 +30,7 @@
       React.DOM.img
         className: 'post-item post-thumbnail'
         src: @props.post.thumbnail
-      React.createElement PostComment, post_url: "http://www.reddit.com#{@props.post.permalink}"
+      React.createElement PostComment, post_url: "https://www.reddit.com#{@props.post.permalink}"
       React.DOM.button
         type: 'submit'
         className: if @props.disabled then 'button button-disabled' else 'button'
