@@ -26,19 +26,19 @@
   componentWillUnmount: ->
     clearInterval @fetchPosts
 
-  removePinnedPosts: (posts) ->
-    filteredAllPosts = @state.all_posts.filter (post) => posts.indexOf(post) >= 0
-    @setState all_posts: filteredAllPosts
-
   unPinPost: (post) ->
     # ajax delete to Rails
-    newPinnedPosts = @state.pinned_posts.filter (pinnedPost) -> pinnedPost.id  != post.id
-    @setState pinned_posts: newPinnedPosts
+    new_pinned_posts = @state.pinned_posts.filter (pinned_post) -> pinned_post.id  != post.id
+    @setState pinned_posts: new_pinned_posts
 
   pinPost: (post) ->
     # ajax post to Rails
-    newPinnedPosts = @state.pinned_posts.concat [post]
-    @setState pinned_posts: newPinnedPosts
+    new_pinned_posts = @state.pinned_posts.concat [post]
+    @setState pinned_posts: new_pinned_posts
+
+  is_disabled: (post) ->
+    pinned_posts = @state.pinned_posts.filter (pinned_post) -> pinned_post.id == post.id
+    pinned_posts.length > 0
 
   renderPinnedPosts: (posts) ->
     posts.map (post) =>
@@ -46,7 +46,8 @@
 
   renderPosts: (posts) ->
     posts.map (post) =>
-      React.createElement Post, key: post.id, onClick: @pinPost, post: post
+      disabled = @is_disabled(post)
+      React.createElement Post, key: post.id, onClick: @pinPost, post: post, disabled: disabled
 
   render: ->
     React.DOM.div null,

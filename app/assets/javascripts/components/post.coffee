@@ -1,6 +1,7 @@
 @Post = React.createClass
   getDefaultProps: ->
     pinned: false
+    disabled: false
     post: null
     onClick: ->
 
@@ -27,9 +28,10 @@
         'Outbound Link'
       React.DOM.img
         className: 'post-item post-thumbnail'
-        # src: @props.post.thumbnail
+        src: @props.post.thumbnail
       React.createElement PostComment, post_url: "http://www.reddit.com#{@props.post.permalink}"
       React.DOM.button
         type: 'submit'
+        disabled: @props.disabled
         onClick: @handleClick
         if @props.pinned then 'upin' else 'Pin!'

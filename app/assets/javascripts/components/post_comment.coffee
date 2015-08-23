@@ -3,32 +3,25 @@
     post_url: ''
 
   getInitialState: ->
-    top_comment: @nullComment()
-
-  nullComment: ->
-    {
-      score: 0,
-      author: '',
-      body: ''
-    }
+    top_comment: null
 
   populateComments: (comment) ->
-    @replaceState top_comment: comment
+    @setState top_comment: comment
 
   commentsUrl: ->
     @props.post_url.split('?')[0] + ".json?sort=top"
 
-  componentWillMount: ->
+  componentDidMount: ->
     $.ajax
       method: 'GET'
       url: @commentsUrl()
       dataType: 'JSON'
       success: (response) =>
-        @populateComments if response[1].data.children[0] then response[1].data.children[0].data else @nullComment()
+        @populateComments if response[1].data.children[0] then response[1].data.children[0].data
       error: (response) =>
         alert("Couldn't fetch the comments")
 
-  render: ->
+  renderComment: ->
     React.DOM.div null,
       React.DOM.h4
         className: 'post-item post-comment-author'
@@ -40,3 +33,12 @@
         className: 'post-item post-comment-score'
         "Comment Score: #{@state.top_comment.score}"
 
+  renderNoComment: ->
+    React.DOM.div null,
+      "no comments..."
+
+  render: ->
+    if @state.top_comment
+      @renderComment()
+    else
+      @renderNoComment()
