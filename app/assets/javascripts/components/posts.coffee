@@ -66,7 +66,8 @@
       React.createElement Post, key: post.reddit_id, onClick: @pinPost, post: post, disabled: disabled
 
   render: ->
-    React.DOM.div null,
+    React.DOM.div
+      className: 'container'
       React.DOM.div null,
         React.DOM.h1
           className: 'title'

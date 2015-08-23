@@ -18,5 +18,6 @@ gem 'haml'
 gem 'react-rails', '~> 1.0'
 gem 'pry-rails', :group => :development
 gem 'bootstrap-sass'
+gem 'readmorejs-rails'
 
 gem 'rails_12factor'

@@ -18,20 +18,24 @@
       dataType: 'JSON'
       success: (response) =>
         @populateComments if response[1].data.children[0] then response[1].data.children[0].data
+        $('.post-comment-body').readmore({
+          speed: 600,
+          collapsedHeight: 80
+        });
       error: (response) =>
         alert("Couldn't fetch the comments")
 
   renderComment: ->
     React.DOM.div null,
-      React.DOM.h4
-        className: 'post-item post-comment-author'
-        "Comment Author: #{@state.top_comment.author}"
       React.DOM.p
         className: 'post-item post-comment-body'
-        "Comment Body: #{@state.top_comment.body}"
+        "Top Comment: #{@state.top_comment.body}"
+      React.DOM.h4
+        className: 'post-item post-comment-author'
+        "- #{@state.top_comment.author}"
       React.DOM.h6
         className: 'post-item post-comment-score'
-        "Comment Score: #{@state.top_comment.score}"
+        "Top Comment Score: #{@state.top_comment.score}"
 
   renderNoComment: ->
     React.DOM.div null,

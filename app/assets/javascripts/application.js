@@ -16,4 +16,6 @@
 //= require react
 //= require react_ujs
 //= require bootstrap-sprockets
+//= require readmore
+
 //= require components
