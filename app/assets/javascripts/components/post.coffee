@@ -9,8 +9,9 @@
     @props.onClick @props.post
 
   render: ->
-    React.DOM.div null,
-      React.DOM.h2
+    React.DOM.div
+      className: 'card'
+      React.DOM.h3
         className: 'post-item post-title'
         "Title: #{@props.post.title}"
       React.DOM.p
@@ -32,6 +33,7 @@
       React.createElement PostComment, post_url: "http://www.reddit.com#{@props.post.permalink}"
       React.DOM.button
         type: 'submit'
+        className: if @props.disabled then 'button button-disabled' else 'button'
         disabled: @props.disabled
         onClick: @handleClick
         if @props.pinned then 'Unpin...' else 'Pin!'
